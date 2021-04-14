@@ -1,10 +1,14 @@
 <script lang="ts">
   import SvgIcon from "../svg_icon/SVGIcon.svelte";
+import type { SVGIconStyle } from "../svg_icon/SVGIconStyle";
 
   export let shape: "circle" | "square" | "rounded-square" | "none" =
-    "rounded-square";
+    "circle";
 
   export let src: string;
+
+  export let icon_style : Partial<SVGIconStyle> = {};
+
 </script>
 
 <style>
@@ -18,6 +22,7 @@
   .bg-shape {
     background-color: var(--main-color);
     box-shadow: var(--box-shadow-2);
+    padding: 0.5rem;
   }
 
   .bg-shape.circle {
@@ -48,6 +53,7 @@
       {src}
       styles={{
         color: "var(--text-on-main-color)",
+        ...icon_style
       }}
     />
   </div>

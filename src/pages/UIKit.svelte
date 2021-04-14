@@ -17,6 +17,10 @@
 	import CircularFrame from "../components/interface/circular_frame/CircularFrame.svelte";
 	import ContextMenu from "../components/interface/context_menu/ContextMenu.svelte";
 	import type { ContextMenuOptions } from "../components/interface/context_menu/ContextMenuOptions";
+	import Dropdown from "../components/interface/dropdown/Dropdown.svelte";
+	import DropdownItem from "../components/interface/dropdown/item/DropdownItem.svelte";
+	import ExpandableContainer from "../components/interface/expandable_container/ExpandableContainer.svelte";
+import FloatingActionButton from "../components/interface/floating_action_button/FloatingActionButton.svelte";
 
 	const CMItems: ContextMenuOptions["items"] = [
 		{
@@ -53,8 +57,8 @@
 			],
 		},
 		{
-			title : "im a group!",
-			items : [
+			title: "im a group!",
+			items: [
 				{
 					icon: "/img/icons/menu.svg",
 					title: "Click Me",
@@ -62,8 +66,8 @@
 						alert("clicked me!");
 					},
 				},
-			]
-		}
+			],
+		},
 	];
 
 	let cmVisibility = false;
@@ -72,6 +76,8 @@
 		x: "0",
 		y: "0",
 	};
+
+	let fabContainer : HTMLElement;
 
 	function openContextMenu(ev: MouseEvent) {
 		ev.preventDefault();
@@ -84,23 +90,26 @@
 </script>
 
 <div transition:fade>
-	<h1>
-		<IconButton
-			src="/img/icons/back.svg"
+	<div class="header">
+		<h1>
+			<IconButton
+				src="/img/icons/back.svg"
+				shape="rounded-square"
+				on:click={() => {
+					window.history.go(-1);
+				}}
+			/><SvgIcon src="/img/harmony.logo.svg" /> Harmony UI Kit
+		</h1>
+		<DimmedButton
 			on:click={() => {
-				window.history.go(-1);
-			}}
-		/><SvgIcon src="/img/harmony.logo.svg" /> Harmony UI Kit
-	</h1>
-	<DimmedButton
-		on:click={() => {
-			if ($CurrentTheme.name === "light") {
-				$CurrentTheme = DarkTheme;
-			} else {
-				$CurrentTheme = LightInterfaceTheme;
-			}
-		}}>Change theme</DimmedButton
-	>
+				if ($CurrentTheme.name === "light") {
+					$CurrentTheme = DarkTheme;
+				} else {
+					$CurrentTheme = LightInterfaceTheme;
+				}
+			}}>Change theme</DimmedButton
+		>
+	</div>
 	<LineSeparator />
 	<h3>Interface Components</h3>
 	<br />
@@ -161,7 +170,6 @@
 		</div>
 
 		<!-- Button -->
-
 		<div class="interface-display">
 			<div class="component-display">
 				<Button>Button</Button>
@@ -426,10 +434,156 @@
 				</ul>
 			</div>
 		</div>
-		<div><h4>Dropdown</h4></div>
-		<div><h4>Expandable Container</h4></div>
-		<div><h4>Floating Action Button</h4></div>
-		<div><h4>Icon Button</h4></div>
+
+		<!-- Dropdown -->
+		<div class="interface-display">
+			<div class="component-display">
+				<Dropdown placeholder="Pick something">
+					<DropdownItem icon="/img/icons/reload.svg" title="Item 1" />
+					<DropdownItem title="Item 2" />
+				</Dropdown>
+			</div>
+			<div class="component-properties">
+				<h3>Dropdown Menu</h3>
+				<h4>➡️ Styling</h4>
+				<ul>
+					<li>
+						<b>background_color:</b> color to be used as the button background, directly
+						inserted into 'background-color' css property, accepts all the values
+						that are valid background colors
+					</li>
+					<li>
+						<b>text_color:</b> color to be used as the button text color and border
+						color, directly inserted into 'text-color' ans 'border-color' css property,
+						accepts all the values that are valid colors
+					</li>
+					<li>
+						<b>padding:</b> button padding, use it as the shorthand css property
+						for 'padding'
+					</li>
+					<li>
+						<b>border:</b> button border, use it as the shorthand css property for
+						'border'
+					</li>
+					<li>
+						<b>width:</b> set a width to be used inside the button, by default it
+						assumes an 'auto' width, to wrap its contents
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<!-- Expandable container -->
+		<div class="interface-display">
+			<div class="component-display">
+				<ExpandableContainer placeholder="I can expand into great lengths!">
+					<LineSeparator />
+					And with text inside me I might explain the whole word to those who should
+					listen!<br />
+					Not too much creativity to keep goin tough;
+				</ExpandableContainer>
+			</div>
+			<div class="component-properties">
+				<h3>Expandable Container</h3>
+				<h4>➡️ Styling</h4>
+				<ul>
+					<li>
+						<b>background_color:</b> color to be used as the button background, directly
+						inserted into 'background-color' css property, accepts all the values
+						that are valid background colors
+					</li>
+					<li>
+						<b>text_color:</b> color to be used as the button text color and border
+						color, directly inserted into 'text-color' ans 'border-color' css property,
+						accepts all the values that are valid colors
+					</li>
+					<li>
+						<b>padding:</b> button padding, use it as the shorthand css property
+						for 'padding'
+					</li>
+					<li>
+						<b>border:</b> button border, use it as the shorthand css property for
+						'border'
+					</li>
+					<li>
+						<b>width:</b> set a width to be used inside the button, by default it
+						assumes an 'auto' width, to wrap its contents
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<!-- Floating Action Button -->
+		<div class="interface-display" bind:this={fabContainer}>
+			<div class="component-display">
+				<h2>Look at the bottom of the page!</h2>
+				<FloatingActionButton title="FAB" bind:bindVisibilityTo={fabContainer} icon="/img/icons/save.svg">
+				</FloatingActionButton>
+			</div>
+			<div class="component-properties">
+				<h3>Floating Action Button</h3>
+				<h4>➡️ Styling</h4>
+				<ul>
+					<li>
+						<b>background_color:</b> color to be used as the button background, directly
+						inserted into 'background-color' css property, accepts all the values
+						that are valid background colors
+					</li>
+					<li>
+						<b>text_color:</b> color to be used as the button text color and border
+						color, directly inserted into 'text-color' ans 'border-color' css property,
+						accepts all the values that are valid colors
+					</li>
+					<li>
+						<b>padding:</b> button padding, use it as the shorthand css property
+						for 'padding'
+					</li>
+					<li>
+						<b>border:</b> button border, use it as the shorthand css property for
+						'border'
+					</li>
+					<li>
+						<b>width:</b> set a width to be used inside the button, by default it
+						assumes an 'auto' width, to wrap its contents
+					</li>
+				</ul>
+			</div>
+		</div>
+
+			<div class="interface-display" bind:this={fabContainer}>
+			<div class="component-display">
+				<IconButton src="/img/icons/save.svg" />
+			</div>
+			<div class="component-properties">
+				<h3>Icon Button</h3>
+				<h4>➡️ Styling</h4>
+				<ul>
+					<li>
+						<b>background_color:</b> color to be used as the button background, directly
+						inserted into 'background-color' css property, accepts all the values
+						that are valid background colors
+					</li>
+					<li>
+						<b>text_color:</b> color to be used as the button text color and border
+						color, directly inserted into 'text-color' ans 'border-color' css property,
+						accepts all the values that are valid colors
+					</li>
+					<li>
+						<b>padding:</b> button padding, use it as the shorthand css property
+						for 'padding'
+					</li>
+					<li>
+						<b>border:</b> button border, use it as the shorthand css property for
+						'border'
+					</li>
+					<li>
+						<b>width:</b> set a width to be used inside the button, by default it
+						assumes an 'auto' width, to wrap its contents
+					</li>
+				</ul>
+			</div>
+		</div>
+
 		<div><h4>Line Separator</h4></div>
 		<div><h4>Popup</h4></div>
 		<div><h4>Progress Bar</h4></div>
@@ -449,6 +603,11 @@
 		box-sizing: border-box;
 	}
 
+	.header {
+		display: grid;
+		grid-template-columns: 1fr auto;
+		grid-template-rows: auto;
+	}
 	h1 {
 		color: var(--main-color);
 		font-size: 2em;

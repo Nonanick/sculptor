@@ -34,5 +34,8 @@ export const DarkTheme: InterfaceTheme = {
    "box-shadow-2" : '0px 7px 6px -5px rgba(0,0,0,0.6)',
    "box-shadow-3" : '1px 1px 8px 0px rgba(0,0,0,0.2)',
    "box-shadow-4" : '',
+
+   "accent-brightness" : "110%",
+   "item-height" : "35px"
   }
 };

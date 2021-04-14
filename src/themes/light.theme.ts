@@ -26,6 +26,7 @@ export const LightInterfaceTheme: InterfaceTheme = {
 
     // Background color
     "background-color": '#f5f5f5',
+    "background-color-accent": '#fafafa',
     "transparent-background-90": 'rgba(255,255,255,0.9)',
     "transparent-background-80": 'rgba(255,255,255,0.8)',
     "transparent-background-70": 'rgba(255,255,255,0.7)',
@@ -39,9 +40,14 @@ export const LightInterfaceTheme: InterfaceTheme = {
     
     // Box shadow
     "default-box-shadow": '0px 4px 6px -4px rgba(0,0,0,0.6)',
-    "box-shadow-1": '0px 4px 6px -4px rgba(0,0,0,0.8)',
+    "box-shadow-1": '1px 1px 8px -2px rgba(0, 0, 0, 0.12)',
     "box-shadow-2": '0px 7px 6px -5px rgba(0,0,0,0.6)',
     "box-shadow-3": '1px 7px 8px -4px rgba(0,0,0,0.5)',
     "box-shadow-4": '1px 1px 8px -4px rgba(0,0,0,0.4)',
+
+    "item-height" : "35px",
+    "item-padding" : "3px 15px",
+
+    "accent-brightness" : "95%",
   }
 }

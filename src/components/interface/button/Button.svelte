@@ -15,6 +15,7 @@
     border: var(--border);
     padding: var(--padding);
     width: var(--width, auto);
+    height: var(--item-height, 2.5rem);
     box-shadow: var(--box-shadow);
     border-radius: 3px;
     transition: opacity 0.3s, filter 0.3s, background-color 0.3s, text-decoration 0.3s, box-shadow 0.3s;
@@ -25,6 +26,7 @@
     text-decoration: var(--text-underline, underline transparent 2px);
     overflow: hidden;
     vertical-align: middle;
+    box-sizing: border-box;
   }
   :global(.ui-button:not(:first-child)) {
     margin-left: 5px;

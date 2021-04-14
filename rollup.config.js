@@ -6,7 +6,6 @@ import { terser } from 'rollup-plugin-terser';
 import sveltePreprocess from 'svelte-preprocess';
 import typescript from '@rollup/plugin-typescript';
 import css from 'rollup-plugin-css-only';
-import { transformSync } from '@swc/core';
 
 const production = false;
 
@@ -42,14 +41,18 @@ export default {
 	plugins: [
 		svelte({
 			preprocess: sveltePreprocess({
-				typescript({ content }) {
-					const { code } = transformSync(content, {
-						jsc: {
-							parser: { syntax: 'typescript' }
-						}
-					});
-					return { code };
+				defaults: {
+					script: 'typescript',
+					style: 'css'
 				},
+				/*	typescript({ content }) {
+						const { code } = transformSync(content, {
+							jsc: {
+								parser: { syntax: 'typescript' }
+							}
+						});
+						return { code };
+					},*/
 				sourceMap: !production
 			}),
 			compilerOptions: {

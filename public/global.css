@@ -74,18 +74,15 @@ button:focus {
 .clickable {
 	cursor: pointer;
 	transition: box-shadow 0.6s;
-	will-change: opacity, filter, background-color, box-shadow;
-    filter: saturate(80%);
+	will-change: opacity, background-color, box-shadow;
 		--box-shadow: var(--box-shadow-2);
 	}
 	
 	.clickable:hover {
-	filter: saturate(95%);
 	--box-shadow: var(--box-shadow-3);
 }
 
 .clickable:active {
-	filter: saturate(100%);
 	--box-shadow: var(--box-shadow-1);
 }
 

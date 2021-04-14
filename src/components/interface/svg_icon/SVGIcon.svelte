@@ -1,26 +1,61 @@
 <script lang="ts">
-import DefaultStyles from '../../style.defaults';
+  import DefaultStyles from "../../style.defaults";
 
-
-import type { SVGIconStyle } from './SVGIconStyle';
+  import type { SVGIconStyle } from "./SVGIconStyle";
 
   export let src: string;
 
-  export let styles : Partial<SVGIconStyle> = {};
+  export let styles: Partial<SVGIconStyle> = {};
 
-  const defaultStyles : SVGIconStyle = DefaultStyles.interface.SVGIcon;
-
+  const defaultStyles: SVGIconStyle = DefaultStyles.interface.SVGIcon;
 </script>
 
+<div
+  class="ui-icon {$$props.class ?? ''}"
+  style="
+  --source: url({src}); 
+  --size : {styles.size ??
+    defaultStyles.size}; 
+  --icon-color: {styles.color ??
+    defaultStyles.color}; 
+  --radius: {styles.box_radius ??
+    defaultStyles.box_radius}; 
+  --bg-color : {styles.bg_color ??
+    defaultStyles.bg_color}; 
+  --aspect-ratio: {styles.aspect_ratio ??
+    defaultStyles.aspect_ratio};
+  --margin: {styles.margin ??
+    defaultStyles.margin}
+  "
+>
+  <div class="fix-ratio" />
+</div>
+
 <style>
-  :global(.ui-icon.clickable > .fix-ratio), :global(.clickable .ui-icon > .fix-ratio) {
-    transform: scale(100%);
-    will-change: transform;
-    transition:  transform 0.1s 0.2s;
-    transition-timing-function : linear;
+  @keyframes bellshake {
+    0% {
+      transform: rotate(0);
+    }
+    30% {
+      transform: rotate(-8deg);
+    }
+    60% {
+      transform: rotate(6deg);
+    }
+    85% {
+      transform: rotate(-4deg);
+    }
+    92% {
+      transform: rotate(2deg);
+    }
+    100% {
+      transform: rotate(0);
+    }
   }
-  :global(.ui-icon.clickable:hover > .fix-ratio), :global(.clickable:hover .ui-icon > .fix-ratio) {
-    transform: scale(105%);
+
+  :global(.ui-icon.clickable:hover > .fix-ratio),
+  :global(.clickable .ui-icon:hover > .fix-ratio) {
+    animation: bellshake 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
   }
   :global(.ui-icon) {
     position: relative;
@@ -54,18 +89,3 @@ import type { SVGIconStyle } from './SVGIconStyle';
     mask-size: 100%;
   }
 </style>
-
-<div
-  class="ui-icon {$$props.class ?? ''}"
-  style="
-  --source: url({src}); 
-  --size : {styles.size ?? defaultStyles.size}; 
-  --icon-color: {styles.color ?? defaultStyles.color}; 
-  --radius: {styles.box_radius ?? defaultStyles.box_radius}; 
-  --bg-color : {styles.bg_color ?? defaultStyles.bg_color}; 
-  --aspect-ratio: {styles.aspect_ratio ?? defaultStyles.aspect_ratio};
-  --margin: {styles.margin ?? defaultStyles.margin}
-  "
->
-  <div class="fix-ratio" />
-</div>

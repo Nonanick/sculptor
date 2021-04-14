@@ -20,9 +20,11 @@
     background-color: var(--background-color, #f9f9f9);
     filter: brightness(100%);
     transition: filter 0.3s;
+    text-align: left;
+    
   }
   .ui-context-menu-item:hover {
-    filter: brightness(96%);
+    filter: brightness(var(--accent-brightness, 94%));
   }
   .ui-cm-item-title {
     padding: 0 10px;

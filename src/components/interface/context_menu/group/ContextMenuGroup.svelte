@@ -21,6 +21,7 @@
     font-weight: 500;
     background-color: rgba(0,0,0,0.03);
     padding-left: 14px;
+    text-align: left;
   }
 </style>
 <div

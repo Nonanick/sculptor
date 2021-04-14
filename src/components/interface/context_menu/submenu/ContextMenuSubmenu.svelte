@@ -13,7 +13,7 @@
   export let enabled: boolean = true;
   export let title: string;
   export let icon: string | null = null;
-  export let spacing: number = 2;
+  export let spacing: number = 1;
   export let placement: "left" | "right" | "comfortable" = "comfortable";
   export let icon_style: Partial<SVGIconStyle> = {};
   export let items: IContextMenuSubmenu["items"] = [];
@@ -28,6 +28,8 @@
 
   let delayedDisplayTimeout: any;
   let delayedHideTimeout: any;
+
+  let overlayBgColor : string = 'transparent';
 
   onMount(() => {
     let rightPos = placeToTheRight(rootEl.getBoundingClientRect());
@@ -58,6 +60,7 @@
           window.innerWidth -
           (rootEl.getBoundingClientRect().x +
             rootEl.getBoundingClientRect().width);
+
         let spaceToTheLeft = rootEl.getBoundingClientRect().x;
         if (spaceToTheLeft > spaceToTheRight) {
           position = {
@@ -76,14 +79,14 @@
 
   function placeToTheLeft(rect: DOMRect) {
     return {
-      x: rect.x + rect.width + spacing,
+      x: rect.x - ( rect.width + spacing ),
       y: rect.y,
     };
   }
 
   function placeToTheRight(rect: DOMRect) {
     return {
-      x: rect.x - spacing,
+      x: rect.x + rect.width + spacing,
       y: rect.y,
     };
   }
@@ -94,20 +97,23 @@
 </script>
 
 <div
-  class="ui-context-menu-submenu {enabled ? '' : 'disabled'}"
-  style="pointer-events: all;"
+  class="ui-context-menu-submenu {enabled ? '' : 'disabled'} clickable"
+  style="--overlay-bg-color : {overlayBgColor};"
   transition:fade={{ duration: 100 }}
   bind:this={rootEl}
-  on:mouseleave={() => {
+  on:mouseout={() => {
+    overlayBgColor = 'transparent';
     if (delayedHideTimeout == null) {
       delayedHideTimeout = setTimeout(() => {
-        //submenuVisibility = false;
+        submenuVisibility = false;
         delayedHideTimeout = null;
       }, 300);
     }
   }}
-  on:mouseenter={() => {
-    if(delayedHideTimeout != null) {
+  on:mouseover={() => {
+    overlayBgColor = 'rgba(0,0,0,0.05)';
+
+    if (delayedHideTimeout != null) {
       clearTimeout(delayedHideTimeout);
       delayedHideTimeout = null;
     }
@@ -122,6 +128,7 @@
     if (enabled) openSubmenu();
   }}
 >
+  <div class="ui-cm-bg-overlay" />
   <div class="ui-cm-submenu-icon">
     {#if icon != null}
       <SvgIcon src={icon} styles={icon_style} />
@@ -139,15 +146,16 @@
   <ContextMenu
     {title}
     {items}
-    on:mouseenter={() => {
+    on:mouseover={() => {
       if (delayedHideTimeout != null) {
         clearTimeout(delayedHideTimeout);
         delayedHideTimeout = null;
       }
     }}
-    on:mouseleave={() => {
+    on:mouseout={() => {
       delayedHideTimeout = setTimeout(() => {
-        //submenuVisibility = false;
+        submenuVisibility = false;
+        delayedHideTimeout = null;
       }, 700);
     }}
     useContainer={false}
@@ -166,11 +174,23 @@
    * inconsistency between browsers thats why i wont just make it 'relative'
    */
   .ui-context-menu-submenu {
+    position: relative;
     display: grid;
     grid-template-columns: auto 1fr 30px;
     grid-template-rows: var(--item-height, 35px);
     border-bottom: 1px solid rgba(0, 0, 0, 0.02);
     background-color: var(--background-color, #f9f9f9);
+    text-align: left;
+  }
+  
+  .ui-cm-bg-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--overlay-bg-color);
+    transition: background-color 0.3s;
   }
   .ui-cm-submenu-title {
     padding: 0 10px;
