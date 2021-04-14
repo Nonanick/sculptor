@@ -7,7 +7,9 @@ import type { SVGIconStyle } from "../svg_icon/SVGIconStyle";
 
   export let src: string;
 
-  export let icon_style : Partial<SVGIconStyle> = {};
+  export let icon_style : Partial<SVGIconStyle> = {
+    margin: "0.5em"
+  };
 
 </script>
 
@@ -22,7 +24,7 @@ import type { SVGIconStyle } from "../svg_icon/SVGIconStyle";
   .bg-shape {
     background-color: var(--main-color);
     box-shadow: var(--box-shadow-2);
-    padding: 0.5rem;
+    padding: 0.3em;
   }
 
   .bg-shape.circle {

@@ -54,7 +54,9 @@
   }
 
   :global(.ui-icon.clickable:hover > .fix-ratio),
-  :global(.clickable .ui-icon:hover > .fix-ratio) {
+  :global(.ui-icon.clickable:active > .fix-ratio),
+  :global(.clickable .ui-icon:hover > .fix-ratio),
+  :global(.clickable .ui-icon:active > .fix-ratio) {
     animation: bellshake 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
   }
   :global(.ui-icon) {
@@ -68,6 +70,7 @@
     vertical-align: middle;
     margin: var(--margin);
   }
+  
   :global(.ui-icon > .fix-ratio) {
     position: absolute;
     top: 0px;

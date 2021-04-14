@@ -54,7 +54,7 @@
     opacity: 1;
     transition: opacity 0.4s;
     pointer-events: all;
-    z-index: 999;
+    z-index: 10;
   }
   .ui-floating-action-button.hidden {
     opacity: 0;
@@ -62,7 +62,7 @@
   }
   .ui-fab-main {
     background-color: var(--main-color);
-    padding: 2.5em;
+    padding: 2.3em;
     border-radius: 50%;
     box-shadow: var(--box-shadow-2);
   }

@@ -57,7 +57,7 @@
     box-sizing: border-box;
     border-radius: var(--border-radius);
     transform: rotate(0deg);
-    z-index: 999;
+    z-index: 10;
     border: 1px solid transparent;
     border-bottom: 0;
     transition: border 0.4s;

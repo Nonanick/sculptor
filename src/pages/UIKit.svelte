@@ -20,7 +20,8 @@
 	import Dropdown from "../components/interface/dropdown/Dropdown.svelte";
 	import DropdownItem from "../components/interface/dropdown/item/DropdownItem.svelte";
 	import ExpandableContainer from "../components/interface/expandable_container/ExpandableContainer.svelte";
-import FloatingActionButton from "../components/interface/floating_action_button/FloatingActionButton.svelte";
+	import FloatingActionButton from "../components/interface/floating_action_button/FloatingActionButton.svelte";
+	import Popup from "../components/interface/popup/Popup.svelte";
 
 	const CMItems: ContextMenuOptions["items"] = [
 		{
@@ -72,12 +73,14 @@ import FloatingActionButton from "../components/interface/floating_action_button
 
 	let cmVisibility = false;
 
+	let popupVisibility = false;
+
 	let cmPosition = {
 		x: "0",
 		y: "0",
 	};
 
-	let fabContainer : HTMLElement;
+	let fabContainer: HTMLElement;
 
 	function openContextMenu(ev: MouseEvent) {
 		ev.preventDefault();
@@ -89,12 +92,13 @@ import FloatingActionButton from "../components/interface/floating_action_button
 	}
 </script>
 
-<div transition:fade>
+<main transition:fade>
 	<div class="header">
 		<h1>
 			<IconButton
 				src="/img/icons/back.svg"
 				shape="rounded-square"
+				icon_style={{ margin: "0" }}
 				on:click={() => {
 					window.history.go(-1);
 				}}
@@ -517,8 +521,11 @@ import FloatingActionButton from "../components/interface/floating_action_button
 		<div class="interface-display" bind:this={fabContainer}>
 			<div class="component-display">
 				<h2>Look at the bottom of the page!</h2>
-				<FloatingActionButton title="FAB" bind:bindVisibilityTo={fabContainer} icon="/img/icons/save.svg">
-				</FloatingActionButton>
+				<FloatingActionButton
+					title="FAB"
+					bind:bindVisibilityTo={fabContainer}
+					icon="/img/icons/save.svg"
+				/>
 			</div>
 			<div class="component-properties">
 				<h3>Floating Action Button</h3>
@@ -550,7 +557,8 @@ import FloatingActionButton from "../components/interface/floating_action_button
 			</div>
 		</div>
 
-			<div class="interface-display" bind:this={fabContainer}>
+		<!-- Icon Button-->
+		<div class="interface-display" >
 			<div class="component-display">
 				<IconButton src="/img/icons/save.svg" />
 			</div>
@@ -584,8 +592,59 @@ import FloatingActionButton from "../components/interface/floating_action_button
 			</div>
 		</div>
 
-		<div><h4>Line Separator</h4></div>
-		<div><h4>Popup</h4></div>
+		<!-- Line Separator-->
+		<div  class="interface-display" style="grid-column: 1 / 3;">
+			<h3>Line Separator</h3>
+			<LineSeparator />
+			That's it
+		</div>
+
+		<!-- Popup -->
+		<div class="interface-display">
+			<div class="component-display">
+
+				<Button on:click={() => (popupVisibility = true)}>
+					<SvgIcon
+						src="/img/icons/open.svg"
+						styles={{ color: "var(--text-on-main-color)" }}
+					/> Click me to open
+				</Button>
+
+				<Popup style={{ width: "300px" }} bind:visible={popupVisibility}>
+					<div slot="header">Popup header</div>
+					Popup content
+				</Popup>
+
+			</div>
+			<div class="component-properties">
+				<h3>Popup</h3>
+				<h4>➡️ Styling</h4>
+				<ul>
+					<li>
+						<b>background_color:</b> color to be used as the button background, directly
+						inserted into 'background-color' css property, accepts all the values
+						that are valid background colors
+					</li>
+					<li>
+						<b>text_color:</b> color to be used as the button text color and border
+						color, directly inserted into 'text-color' ans 'border-color' css property,
+						accepts all the values that are valid colors
+					</li>
+					<li>
+						<b>padding:</b> button padding, use it as the shorthand css property
+						for 'padding'
+					</li>
+					<li>
+						<b>border:</b> button border, use it as the shorthand css property for
+						'border'
+					</li>
+					<li>
+						<b>width:</b> set a width to be used inside the button, by default it
+						assumes an 'auto' width, to wrap its contents
+					</li>
+				</ul>
+			</div>
+		</div>
 		<div><h4>Progress Bar</h4></div>
 		<div><h4>Progress Ring</h4></div>
 		<div><h4>Resizable Container</h4></div>
@@ -593,13 +652,13 @@ import FloatingActionButton from "../components/interface/floating_action_button
 		<div><h4>Tab</h4></div>
 		<div><h4>Tooltip</h4></div>
 	</sector>
-</div>
+</main>
 
 <style>
-	div {
+	main {
 		position: relative;
-		padding: 1em;
 		margin: 0;
+		padding: 1em 1.5em;
 		box-sizing: border-box;
 	}
 
@@ -645,6 +704,7 @@ import FloatingActionButton from "../components/interface/floating_action_button
 		column-gap: 20px;
 		background-color: var(--transparent-background-70);
 		border-radius: 4px;
+		padding: 1em 1.5em;
 	}
 
 	.component-display {

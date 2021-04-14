@@ -48,6 +48,9 @@ export const LightInterfaceTheme: InterfaceTheme = {
     "item-height" : "35px",
     "item-padding" : "3px 15px",
 
+    "window-padding" : "10px 15px",
+    "header-padding" : "9px 15px",
+
     "accent-brightness" : "95%",
   }
 }
