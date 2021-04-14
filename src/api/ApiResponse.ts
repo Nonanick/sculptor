@@ -1,4 +1,4 @@
-import { ApiRequest } from './ApiRequest';
+import type { ApiRequest } from './ApiRequest';
 
 export interface ApiResponse<Payload = any> {
   status : number;

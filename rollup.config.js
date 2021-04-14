@@ -6,6 +6,7 @@ import { terser } from 'rollup-plugin-terser';
 import sveltePreprocess from 'svelte-preprocess';
 import typescript from '@rollup/plugin-typescript';
 import css from 'rollup-plugin-css-only';
+import { transformSync } from '@swc/core';
 
 const production = false;
 
@@ -22,7 +23,7 @@ function serve() {
 			server = require('child_process').spawn('pnpm', ['start', '--', '--dev'], {
 				stdio: ['ignore', 'inherit', 'inherit'],
 				shell: true,
-				detached : false,
+				detached: false,
 			});
 			process.on('beforeExit', toExit);
 			process.on('SIGTERM', toExit);
@@ -40,7 +41,17 @@ export default {
 	},
 	plugins: [
 		svelte({
-			preprocess: sveltePreprocess({ sourceMap: !production }),
+			preprocess: sveltePreprocess({
+				typescript({ content }) {
+					const { code } = transformSync(content, {
+						jsc: {
+							parser: { syntax: 'typescript' }
+						}
+					});
+					return { code };
+				},
+				sourceMap: !production
+			}),
 			compilerOptions: {
 				// enable run-time checks when not in production
 				dev: !production
@@ -67,13 +78,13 @@ export default {
 
 		// In dev mode, call `npm run start` once
 		// the bundle has been generated
-	//	!production && serve(),
+		//	!production && serve(),
 
 		// Watch the `public` directory and refresh the
 		// browser on changes when not in production
 		!production && livereload({
-			watch : 'public',
-			clientUrl : 'http://localhost:35729/livereload.js?snipv'
+			watch: 'public',
+			clientUrl: 'http://localhost:35729/livereload.js?snipv'
 		}),
 
 		// If we're building for production (npm run build
@@ -82,6 +93,6 @@ export default {
 	],
 	watch: {
 		//clearScreen: false,
-   // chokidar : false,
+		// chokidar : false,
 	}
 };
