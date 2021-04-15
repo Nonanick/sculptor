@@ -1,30 +1,48 @@
 <script lang="ts">
   import SvgIcon from "../svg_icon/SVGIcon.svelte";
-import type { SVGIconStyle } from "../svg_icon/SVGIconStyle";
+  import type { SVGIconStyle } from "../svg_icon/SVGIconStyle";
 
-  export let shape: "circle" | "square" | "rounded-square" | "none" =
-    "circle";
+  export let shape: "circle" | "square" | "rounded-square" | "none" = "circle";
 
   export let src: string;
 
-  export let icon_style : Partial<SVGIconStyle> = {
-    margin: "0.5em"
+  export let icon_style: Partial<SVGIconStyle> = {
+    margin: "0.6em",
   };
-
 </script>
+
+<div
+  class="ui-icon-button clickable bg-shape {shape}"
+  on:click
+  on:contextmenu
+  on:mousedown
+  on:mouseleave
+  on:mouseup
+  on:mouseleave
+  on:dblclick
+>
+  <SvgIcon
+    {src}
+    styles={{
+      color: "var(--text-on-main-color)",
+      ...icon_style,
+    }}
+  />
+</div>
 
 <style>
   .ui-icon-button {
-    display: inline-block;
-    vertical-align: middle;
-    padding: 3px;
+    display: inline-grid;
     box-sizing: border-box;
+    grid-template: 1fr / 1fr;
+    align-items: center;
+    justify-items: center;
+    vertical-align: middle;
   }
 
   .bg-shape {
     background-color: var(--main-color);
     box-shadow: var(--box-shadow-2);
-    padding: 0.3em;
   }
 
   .bg-shape.circle {
@@ -39,24 +57,3 @@ import type { SVGIconStyle } from "../svg_icon/SVGIconStyle";
     border-radius: 5% 30% 30% 30%;
   }
 </style>
-
-<div
-  class="ui-icon-button clickable"
-  on:click
-  on:contextmenu
-  on:mousedown
-  on:mouseleave
-  on:mouseup
-  on:mouseleave
-  on:dblclick
->
-  <div class="bg-shape {shape}">
-    <SvgIcon
-      {src}
-      styles={{
-        color: "var(--text-on-main-color)",
-        ...icon_style
-      }}
-    />
-  </div>
-</div>

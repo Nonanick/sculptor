@@ -22,6 +22,7 @@
 	import ExpandableContainer from "../components/interface/expandable_container/ExpandableContainer.svelte";
 	import FloatingActionButton from "../components/interface/floating_action_button/FloatingActionButton.svelte";
 	import Popup from "../components/interface/popup/Popup.svelte";
+	import UiGroup from "../components/interface/ui_group/UIGroup.svelte";
 
 	const CMItems: ContextMenuOptions["items"] = [
 		{
@@ -181,6 +182,19 @@
 				<br />
 				<OutlineButton>Outline Button</OutlineButton>
 				<TextButton>Text Button</TextButton>
+				<br />
+
+				<UiGroup>
+					<Button>Button 1</Button>
+					<Button>Button 2</Button>
+					<IconButton src="/img/icons/reload.svg" />
+				</UiGroup>
+
+				<UiGroup>
+					<Button>Button 1</Button>
+					<Button>Button 3</Button>
+					<OutlineButton>Outline Button</OutlineButton>
+				</UiGroup>
 			</div>
 			<div class="component-properties">
 				<h3>Button</h3>
@@ -558,7 +572,7 @@
 		</div>
 
 		<!-- Icon Button-->
-		<div class="interface-display" >
+		<div class="interface-display">
 			<div class="component-display">
 				<IconButton src="/img/icons/save.svg" />
 			</div>
@@ -593,7 +607,7 @@
 		</div>
 
 		<!-- Line Separator-->
-		<div  class="interface-display" style="grid-column: 1 / 3;">
+		<div class="interface-display" style="grid-column: 1 / 3;">
 			<h3>Line Separator</h3>
 			<LineSeparator />
 			That's it
@@ -602,7 +616,6 @@
 		<!-- Popup -->
 		<div class="interface-display">
 			<div class="component-display">
-
 				<Button on:click={() => (popupVisibility = true)}>
 					<SvgIcon
 						src="/img/icons/open.svg"
@@ -614,7 +627,6 @@
 					<div slot="header">Popup header</div>
 					Popup content
 				</Popup>
-
 			</div>
 			<div class="component-properties">
 				<h3>Popup</h3>
