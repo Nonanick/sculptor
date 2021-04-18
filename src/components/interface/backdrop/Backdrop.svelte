@@ -50,7 +50,7 @@ import { createEventDispatcher } from "svelte";
     height: 100%;
     box-sizing: border-box;
     padding: var(--item-padding, 10px 20px);
-    animation: growAndShow 0.2s ease-out;
+    animation: growAndShow 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
 
     background-color: rgba(0,0,0,0.5 );
 

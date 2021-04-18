@@ -65,6 +65,7 @@
   }
   .ui-dropdown-header {
     padding: var(--item-padding, 6px 15px);
+    margin-right: 30px;
   }
   .ui-dropdown.expanded {
     height: auto;

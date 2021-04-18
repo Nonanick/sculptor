@@ -194,6 +194,11 @@
 					<Button>Button 1</Button>
 					<Button>Button 3</Button>
 					<OutlineButton>Outline Button</OutlineButton>
+					<Dropdown placeholder="Pick something">
+						<DropdownItem title="Something"></DropdownItem>
+						<DropdownItem title="Something good"></DropdownItem>
+						<DropdownItem title="Something really good"></DropdownItem>
+					</Dropdown>
 				</UiGroup>
 			</div>
 			<div class="component-properties">

@@ -1,10 +1,12 @@
 <script lang="ts">
-
-
+  export let direction: "row" | "column" = "column";
 </script>
 
-<div class="ui-group">
-  <slot></slot>
+<div
+  class="ui-group {$$props.class ?? ''}"
+  style="{$$props.style ?? ''}; --direction : {direction};"
+>
+  <slot />
 </div>
 
 <style>
@@ -13,10 +15,9 @@
     display: inline-grid;
     vertical-align: middle;
     grid-auto-columns: auto;
-    grid-auto-flow: column;
+    grid-auto-flow: var(--direction);
     grid-template-rows: var(--item-height, 35px);
     border-radius: var(--border-radius);
-    overflow: hidden;
     width: max-content;
     height: var(--item-height, 35px);
   }
@@ -31,5 +32,14 @@
   }
   .ui-group > :global(*:not(:last-child)) {
     border-right: 2px solid var(--secondary-color-75) !important;
+  }
+  .ui-group > :global(*:last-child) {
+    border-top-right-radius: var(--border-radius) !important;
+    border-bottom-right-radius: var(--border-radius) !important;
+  }
+
+  .ui-group > :global(*:first-child) {
+    border-top-left-radius: var(--border-radius) !important;
+    border-bottom-left-radius: var(--border-radius) !important;
   }
 </style>
